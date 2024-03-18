@@ -1,0 +1,59 @@
+// $
+
+@mixin text-ellipsis-1 {
+   display: -webkit-box !important;
+   -webkit-line-clamp: 1;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+@mixin text-ellipsis-2 {
+   display: -webkit-box !important;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+@mixin text-ellipsis-3 {
+   display: -webkit-box !important;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.colorInherit {
+   color: inherit;
+}
+
+.desktopElement {
+   display: block !important;
+}
+
+.mobileElement {
+   display: none !important;
+}
+
+.displayNone {
+   display: none;
+}
+
+/***************************
+****************************
+**********Adaptive**********
+****************************
+***************************/
+
+@media (max-width: 900px) {
+
+   .desktopElement {
+      display: none !important;
+   }
+
+   .mobileElement {
+      display: block !important;
+   }
+}
