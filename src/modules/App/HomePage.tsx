@@ -1,37 +1,52 @@
-import { Button, Stack, SxProps, Typography } from '@mui/material';
+import { Button, Container, Stack, SxProps, Typography } from '@mui/material';
 import { getThemeMode } from '../../redux/app/appSelector';
 import { toggleThemeMode } from '../../redux/app/appReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import styles from './styles.module.scss';
+import { Header } from './Elements/Header';
+import { HomeContent } from './Elements/HomeContent';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 type HomePageType = {
 };
 
 export const HomePage: React.FC<HomePageType> = ({ }) => {
     const dispatch: any = useDispatch();
-    const { t: translation } = useTranslation();
-    
-    
-    const mode = useSelector(getThemeMode)
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+    const [isOpenedHomePage, setIsOpenedHomePage] = useState(true);
 
-    const toggleThee = () => {
-        dispatch(toggleThemeMode(mode))
+    useEffect(() => {
+        if (pathname === '/detail') {
+            isOpenedHomePage && setIsOpenedHomePage(false);
+        } else {
+            isOpenedHomePage || setIsOpenedHomePage(true);
+        }
+    }, [pathname]);
+
+    const onOpenDetail = () => {
+        setIsOpenedHomePage(false);
+        navigate('/detail')
     };
 
+
     return (
-        <Stack alignItems={'center'} justifyContent={'center'} sx={styles.stack}>
-            <Typography variant="h1" color={'inherit'}>Hello world!</Typography>
-            <Button variant="text" color="primary" onClick={toggleThee}>
-                Chang
-                {translation('hello_world')}
-            </Button>
+        <Stack className={styles.mainWrapper} sx={propsStyles.stack} justifyContent={'center'}>
+            <Container className={styles.container} maxWidth='lg' >
+                <Header isHomePage={isOpenedHomePage} />
+                <HomeContent onOpenDetail={onOpenDetail} isOpenedHomePage={isOpenedHomePage}/>
+            </Container>
         </Stack>
     );
 };
 
-const styles = {
+const propsStyles = {
     stack: {
         color: 'fpage.main',
-        height: '100vh',
+    } as SxProps,
+    container: {
+        flex: 1,
     } as SxProps,
 };
