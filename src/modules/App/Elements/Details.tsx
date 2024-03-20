@@ -44,6 +44,14 @@ export const Details: React.FC<DetailsType> = ({ isOpened }) => {
         setCurrentSlide(newCurrentSlide < 0 ? 0 : newCurrentSlide)
     };
 
+    const nextItem = slidesInRow === 1
+        ? total - 1 >= currentSlide ? { img: equipment[currentSlide].image, title: equipment[currentSlide].title } : undefined
+        : undefined;
+
+    const prevItem = slidesInRow === 1
+        ? 0 <= currentSlide ? { img: equipment[currentSlide].image, title: equipment[currentSlide].title } : undefined
+        : undefined;
+
     return (
         <Stack className={cn(styles.detailWrapper, targetView ? styles.fullView : '')}>
             <Stack className={styles.detailCarousel} direction={'row'} alignItems={'center'} >
@@ -61,7 +69,12 @@ export const Details: React.FC<DetailsType> = ({ isOpened }) => {
                         />
                     ))
                 }
-                <BigCarouselControl onSlideNext={onSlideNext} onSlidePrev={onSlidePrev} />
+                <BigCarouselControl
+                    onSlideNext={onSlideNext}
+                    onSlidePrev={onSlidePrev}
+                    nextItem={nextItem}
+                    prevItem={prevItem}
+                />
                 <CarouselFooter currentSlide={currentSlide} total={total} onClose={onClose} />
             </Stack>
             <SmallCarouselControl onSlideNext={onSlideNext} onSlidePrev={onSlidePrev} />
@@ -91,15 +104,35 @@ const CarouselItem: React.FC<CarouselItemType> = ({ currentSlide, index, slidesI
         to: currentSlide * slidesInRow + slidesInRow,
     };
 
+    const getActiveClass = () => {
+        return index === currentSlide
+            ? '' : styles.animateNext
+        if (slidesInRow !== 1)
+            return '';
+
+        if (isDirectionNext) {
+            return index === currentSlide
+                ? ''
+                : index === currentSlide + 1
+                    ? ''
+                    : ''
+        } else {
+            return index === currentSlide
+                ? ''
+                : index === currentSlide - 1
+                    ? ''
+                    : ''
+        }
+    }
+
     const quantity = isDirectionNext ? index - visibleRow.from : visibleRow.to - index - 1;
     const transitionDelay = index > visibleRow.from && index < visibleRow.to ? `${75 * (quantity)}ms` : '';
 
     const transformGap = slidesInRow === 1 ? 0 : currentSlide * slidesInRow * 2;
-    // const transformGap =  currentSlide * slidesInRow * 2;
     const transform = `translateX(calc(-${currentSlide * slidesInRow * 100}% - ${transformGap}em ))`;
 
     return (
-        <Box className={cn(styles.detailCarousel__item)}
+        <Box className={cn(styles.detailCarousel__item, getActiveClass())}
             sx={{
                 transform,
                 transitionDelay,
