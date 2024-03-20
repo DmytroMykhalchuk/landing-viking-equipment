@@ -8,6 +8,7 @@ import { Header } from './Elements/Header';
 import { HomeContent } from './Elements/HomeContent';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Details } from './Elements/Details';
 
 type HomePageType = {
 };
@@ -34,9 +35,10 @@ export const HomePage: React.FC<HomePageType> = ({ }) => {
 
     return (
         <Stack className={styles.mainWrapper} sx={propsStyles.stack} justifyContent={'center'}>
-            <Container className={styles.container} maxWidth='lg' >
+            <Container className={styles.container} maxWidth={false}>
                 <Header isHomePage={isOpenedHomePage} />
-                <HomeContent onOpenDetail={onOpenDetail} isOpenedHomePage={isOpenedHomePage}/>
+                <HomeContent onOpenDetail={onOpenDetail} isOpenedHomePage={isOpenedHomePage} />
+                <Details isOpened={!isOpenedHomePage} />
             </Container>
         </Stack>
     );

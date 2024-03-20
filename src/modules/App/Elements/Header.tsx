@@ -3,6 +3,7 @@ import { IconButton, Menu, MenuItem, Stack } from '@mui/material';
 import { useState } from 'react';
 import { HeaderTitle } from './HeaderTitle';
 import { Socials } from './Socials';
+import styles from './../styles.module.scss';
 
 type HeaderType = {
     isHomePage: boolean;
@@ -23,10 +24,10 @@ export const Header: React.FC<HeaderType> = ({ isHomePage }) => {
 
     return (
         <Stack
+            className={styles.header}
             justifyContent={'space-between'}
             alignItems={'center'}
             direction={'row'}
-            width={'100%'}
         >
             <div>
 

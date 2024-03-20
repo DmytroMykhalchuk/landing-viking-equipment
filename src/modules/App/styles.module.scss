@@ -1,15 +1,20 @@
 @import url('./../global.module.scss');
 
+.header {
+    z-index: 2;
+}
+
 .mainWrapper {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
     background: rgb(25, 105, 54);
-    background: linear-gradient(0deg, rgba(25, 105, 54, 1) 0%, rgba(0, 0, 0, 1) 100%);
+    background: linear-gradient(0deg, rgb(13, 53, 27) 0%, rgba(0, 0, 0, 1) 100%);
 }
 
 .container {
     position: relative;
+    width: 100vw !important;
     flex: 1;
     margin: 0 auto;
     display: flex !important;
@@ -82,6 +87,199 @@
 .bottomArrow {
     rotate: 90deg;
     animation: bounceX 1s ease infinite alternate;
+}
+
+.detailWrapper {
+    overflow-y: visible;
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    bottom: 0;
+    height: 50vh;
+    width: 100%;
+
+    &.fullView {
+        height: 100%;
+        width: 100%;
+        margin-left: -24px;
+    }
+
+    &.fullView .detailCarousel {
+        height: 100vh;
+        gap: 0;
+
+        &__rightArrow,
+        &__leftArrow {
+            transition-delay: 0.5s;
+            opacity: 1;
+        }
+
+        &__rightArrow {
+            right: 0px;
+        }
+
+        &__leftArrow {
+            left: 32px;
+        }
+
+        &__footer {
+            bottom: 36px;
+            opacity: 1;
+            transition-delay: 0.5s;
+        }
+
+    }
+
+    &.fullView .detailCarousel__item {
+        min-width: 100vw;
+        height: 100vh;
+    }
+
+    &.fullView .detailCarousel__item .content {
+        height: 100%;
+        padding-top: 120px;
+        border-radius: 0;
+        gap: 1em;
+
+        padding-left: 90px;
+        padding-right: 90px;
+
+        &:hover {
+            scale: 1;
+        }
+
+    }
+
+    &.fullView .detailCarousel__item .content .description {
+        width: 50%;
+        opacity: 1;
+        transition-property: opacity, transform;
+        transition-delay: 0.5s;
+        transition-duration: 0.5s;
+        transform: translateY(0);
+    }
+
+
+    &.fullView .detailWrapper__control {
+        transition: all 0.5s ease-in-out;
+        transform: translateY(20%);
+        opacity: 0;
+    }
+
+    &__control {
+        transform: translateY(0%);
+        opacity: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.detailCarousel {
+    gap: 2em;
+    margin-bottom: 16px;
+    height: 20vh;
+    transition: all 0.6s ease-in-out;
+    position: relative;
+
+    &__rightArrow,
+    &__leftArrow {
+        transition: all 0.5s ease-in-out;
+        position: absolute;
+        top: 50%;
+        opacity: 0;
+        z-index: 1;
+    }
+
+    &__rightArrow {
+        right: -30%;
+        transform: translate(-50%, -50%);
+    }
+
+    &__leftArrow {
+        left: -30%;
+        transform: translate(-50%, -50%);
+    }
+
+    &__footer {
+        position: absolute;
+        bottom: -20%;
+        opacity: 0;
+        z-index: 1;
+        width: 100%;
+        transition: all 0.5s ease-in-out;
+
+        & .icon {
+            font-size: 2.5em;
+        }
+    }
+
+    &__footer .row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 36px;
+    }
+
+    &__item {
+        height: 20vh;
+        min-width: calc((100% / 4) - ((2em * 4) / 4));
+        transition: all 0.6s ease-in-out;
+        cursor: pointer;
+    }
+
+    &__item .content {
+        background: #303030;
+        border-radius: 16px;
+        padding: 1em;
+        transition: all 0.2s;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0px;
+        padding-left: 1em;
+        padding-right: 1em;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .imageWrapper {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &:hover {
+            scale: 1.1;
+        }
+
+        .description {
+            transform: translateY(200px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            width: 0px;
+        }
+    }
+
 }
 
 
