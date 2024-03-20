@@ -38,7 +38,7 @@ export const HomePage: React.FC<HomePageType> = ({ }) => {
             <Container className={styles.container} maxWidth={false}>
                 <Header isHomePage={isOpenedHomePage} />
                 <HomeContent onOpenDetail={onOpenDetail} isOpenedHomePage={isOpenedHomePage} />
-                <Details isOpened={!isOpenedHomePage} />
+                <Details isOpened={Boolean(isOpenedHomePage)} />
             </Container>
         </Stack>
     );

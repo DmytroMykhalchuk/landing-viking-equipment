@@ -1,13 +1,11 @@
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import cn from 'classnames';
 import styles from './../styles.module.scss';
-import { Box, IconButton, Stack, Typography } from '@mui/material';
-import { equipment } from '../../../redux/state';
-import { useState } from 'react';
-import { CarouselFooter } from './CarouselFooter';
 import { BigCarouselControl } from './BigCarouselControl';
+import { Box, Stack } from '@mui/material';
+import { CarouselFooter } from './CarouselFooter';
+import { equipment } from '../../../redux/state';
 import { SmallCarouselControl } from './SmallCarouselControl';
+import { useEffect, useState } from 'react';
 
 type DetailsType = {
     isOpened: boolean;
@@ -20,6 +18,12 @@ export const Details: React.FC<DetailsType> = ({ isOpened }) => {
     const [slidesInRow, setSlidesInRow] = useState(4);
     const [targetView, setTargetView] = useState<null | number>(null);
     const [direction, setDirection] = useState('right' as 'right' | 'left');
+
+    useEffect(() => {
+        setTargetView(null);
+        setSlidesInRow(4)
+        setCurrentSlide(0);
+    }, [isOpened]);
 
     const onSlideNext = () => {
         setCurrentSlide((prev: number) => total / slidesInRow <= prev + 1 ? prev : prev + 1)
@@ -53,7 +57,8 @@ export const Details: React.FC<DetailsType> = ({ isOpened }) => {
         : undefined;
 
     return (
-        <Stack className={cn(styles.detailWrapper, targetView ? styles.fullView : '')}>
+        // <div className={cn(styles.detailPage, isOpened ? '' : styles.active)}>
+        <Stack className={cn(styles.detailWrapper, targetView ? styles.fullView : '', styles.detailPage, isOpened ? '' : styles.active)}>
             <Stack className={styles.detailCarousel} direction={'row'} alignItems={'center'} >
                 {
                     equipment.map((item, index) => (
@@ -79,6 +84,7 @@ export const Details: React.FC<DetailsType> = ({ isOpened }) => {
             </Stack>
             <SmallCarouselControl onSlideNext={onSlideNext} onSlidePrev={onSlidePrev} />
         </Stack>
+        // </div>
     );
 };
 

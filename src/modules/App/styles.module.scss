@@ -26,6 +26,7 @@
     position: relative;
     transition: all 0.5s;
     z-index: 2;
+    cursor: pointer;
 
     &.active {
         scale: 1.5;
@@ -144,11 +145,7 @@
         height: 100vh;
 
         &.animateNext {
-            .content {
-                // transition-delay: 0.3s;
-                // transform: translateX(-50%);
-                // gap: 6em;
-            }
+            .content {}
 
             img {
                 transform: translateX(-30%);
@@ -348,7 +345,17 @@
             width: 0px;
         }
     }
+}
 
+.detailPage {
+    transition: all 0.5s ease;
+    transform: translateY(50vh);
+    opacity: 0;
+
+    &.active {
+        transform: translateY(0vh);
+        opacity: 1;
+    }
 }
 
 
