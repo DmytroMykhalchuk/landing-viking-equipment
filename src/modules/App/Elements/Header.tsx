@@ -1,15 +1,18 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { IconButton, Menu, MenuItem, Stack } from '@mui/material';
-import { useState } from 'react';
-import { HeaderTitle } from './HeaderTitle';
-import { Socials } from './Socials';
 import styles from './../styles.module.scss';
+import { HeaderTitle } from './HeaderTitle';
+import { IconButton, Menu, MenuItem, Stack } from '@mui/material';
+import { Socials } from './Socials';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 type HeaderType = {
     isHomePage: boolean;
 };
 
 export const Header: React.FC<HeaderType> = ({ isHomePage }) => {
+    const navigate = useNavigate();
+
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const toggleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -18,6 +21,10 @@ export const Header: React.FC<HeaderType> = ({ isHomePage }) => {
 
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const onNavigate = (path: string) => {
+        window.location.href = path;
     };
 
     const open = Boolean(anchorEl);
@@ -47,8 +54,8 @@ export const Header: React.FC<HeaderType> = ({ isHomePage }) => {
                         'aria-labelledby': 'basic-button',
                     }}
                 >
-                    <MenuItem onClick={handleClose}>Github</MenuItem>
-                    <MenuItem onClick={handleClose}>CV</MenuItem>
+                    <MenuItem onClick={() => onNavigate('https://github.com/DmytroMykhalchuk/landing-viking-equipment')}>Github</MenuItem>
+                    <MenuItem onClick={() => onNavigate('https://github.com/DmytroMykhalchuk/')}>CV</MenuItem>
                 </Menu>
             </div>
             <HeaderTitle isHomePage={isHomePage} />
