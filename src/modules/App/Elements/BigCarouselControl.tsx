@@ -2,6 +2,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import styles from './../styles.module.scss';
 import { IconButton } from '@mui/material';
+import cn from 'classnames';
 
 type BigCarouselControlType = {
     onSlidePrev: () => void;
@@ -17,16 +18,20 @@ type BigCarouselControlType = {
 };
 
 export const BigCarouselControl: React.FC<BigCarouselControlType> = ({ onSlideNext, onSlidePrev, nextItem, prevItem }) => {
+    const leftArrowClasses = cn(styles.detailCarousel__leftArrow, Boolean(prevItem) ? '' : styles.disabled);
+    const rightArrowClasses = cn(styles.detailCarousel__rightArrow, Boolean(nextItem) ? '' : styles.disabled);
+
+
 
     return (
         <>
-            <div className={styles.detailCarousel__leftArrow} onClick={onSlidePrev}>
+            <div className={leftArrowClasses} onClick={onSlidePrev}>
                 <IconButton aria-label="prev" color='primary' disabled={!Boolean(prevItem)} disableRipple disableTouchRipple>
                     <ArrowBackIosIcon />
                 </IconButton>
                 {prevItem && <ItemShort img={prevItem.img} title={prevItem.img} />}
             </div>
-            <div className={styles.detailCarousel__rightArrow} onClick={onSlideNext}>
+            <div className={rightArrowClasses} onClick={onSlideNext}>
                 <IconButton aria-label="prev" color='primary' disabled={!Boolean(nextItem)} disableRipple disableTouchRipple>
                     <ArrowForwardIosIcon />
                 </IconButton>

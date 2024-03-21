@@ -52,7 +52,6 @@ export const Header: React.FC<HeaderType> = ({ isHomePage }) => {
                 </Menu>
             </div>
             <HeaderTitle isHomePage={isHomePage} />
-
             <Socials />
         </Stack>
     );

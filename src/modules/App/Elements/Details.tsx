@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import styles from './../styles.module.scss';
 import { BigCarouselControl } from './BigCarouselControl';
-import { Box, Stack, Typography, Button, SxProps } from '@mui/material';
+import { Box, Stack, Typography, Button, SxProps, useMediaQuery } from '@mui/material';
 import { CarouselFooter } from './CarouselFooter';
 import { equipment } from '../../../redux/state';
 import { SmallCarouselControl } from './SmallCarouselControl';
@@ -12,18 +12,37 @@ type DetailsType = {
 };
 
 export const Details: React.FC<DetailsType> = ({ isOpened }) => {
-    const total = equipment.length;
+
+    const isMobile = useMediaQuery('(max-width:600px)');
+    const isTablet = useMediaQuery('(max-width:900px)');
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const [slidesInRow, setSlidesInRow] = useState(4);
+    const [total, setTotal] = useState(equipment.length);
     const [targetView, setTargetView] = useState<null | number>(null);
     const [direction, setDirection] = useState('right' as 'right' | 'left');
 
     useEffect(() => {
+        checkResponseveSlides();
+    }, [isMobile, isTablet]);
+
+    useEffect(() => {
         setTargetView(null);
-        setSlidesInRow(4)
         setCurrentSlide(0);
+        checkResponseveSlides();
     }, [isOpened]);
+
+    const checkResponseveSlides = () => {
+        if (isMobile) {
+            setSlidesInRow(1);
+        } else if (isTablet) {
+            setSlidesInRow(2);
+        } else {
+            setSlidesInRow(4);
+        }
+
+        setCurrentSlide(0);
+    }
 
     const onSlideNext = () => {
         setCurrentSlide((prev: number) => total / slidesInRow <= prev + 1 ? prev : prev + 1)
@@ -42,9 +61,9 @@ export const Details: React.FC<DetailsType> = ({ isOpened }) => {
     };
 
     const onClose = () => {
-        const newCurrentSlide = Math.ceil(currentSlide / 4) - 1;
+        const newCurrentSlide = Math.ceil(currentSlide / slidesInRow) - 1;
         setTargetView(null);
-        setSlidesInRow(4)
+        checkResponseveSlides();
         setCurrentSlide(newCurrentSlide < 0 ? 0 : newCurrentSlide)
     };
 
@@ -70,6 +89,8 @@ export const Details: React.FC<DetailsType> = ({ isOpened }) => {
                             onChoose={() => onChoose(item.id)}
                             targetView={targetView}
                             slidesInRow={slidesInRow}
+                            isMobile={isMobile}
+                            isTablet={isTablet}
                         />
                     ))
                 }
@@ -100,6 +121,8 @@ type CarouselItemType = {
     };
     onChoose: () => void;
     targetView: null | number;
+    isMobile: boolean;
+    isTablet: boolean;
 };
 
 const CarouselItem: React.FC<CarouselItemType> = ({ currentSlide, index, slidesInRow = 4, isDirectionNext, item, onChoose, targetView }) => {
@@ -110,7 +133,9 @@ const CarouselItem: React.FC<CarouselItemType> = ({ currentSlide, index, slidesI
 
     const getActiveClass = () => {
         return index === currentSlide
-            ? '' : styles.animateNext
+            ? ''
+            : styles.animateNext
+
         if (slidesInRow !== 1)
             return '';
 
@@ -127,12 +152,19 @@ const CarouselItem: React.FC<CarouselItemType> = ({ currentSlide, index, slidesI
                     ? ''
                     : ''
         }
-    }
+    };
 
-    const quantity = isDirectionNext ? index - visibleRow.from : visibleRow.to - index - 1;
-    const transitionDelay = index > visibleRow.from && index < visibleRow.to ? `${75 * (quantity)}ms` : '';
+    const quantity = isDirectionNext ? index - visibleRow.from : visibleRow.to - index;
+    const transitionDelay = index >= visibleRow.from && index < visibleRow.to ? `${75 * (quantity)}ms` : '';
 
-    const transformGap = slidesInRow === 1 ? 0 : currentSlide * slidesInRow * 2;
+    const transformGap = slidesInRow === 1
+        ? index * 1
+        : slidesInRow === 2 ?
+            currentSlide * slidesInRow * 1
+            : slidesInRow === 4
+                ? currentSlide * slidesInRow * 2
+                : 1;
+
     const transform = `translateX(calc(-${currentSlide * slidesInRow * 100}% - ${transformGap}em ))`;
 
     return (

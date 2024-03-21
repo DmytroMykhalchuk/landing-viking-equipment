@@ -21,7 +21,6 @@ export const HeaderTitle: React.FC<HeaderTitleType> = ({ isHomePage }) => {
     return (
         <div className={cn(styles.titleWrapper, isHomePage ? styles.active : '')} onClick={onNavigate}>
             <Typography className={styles.titleWrapper__mainTitle} component={'h1'}>Vikings equipment</Typography>
-            <Typography className={styles.titleWrapper__subtitle} component={'h3'}>Dev Dmytro</Typography>
         </div>
     );
 };
