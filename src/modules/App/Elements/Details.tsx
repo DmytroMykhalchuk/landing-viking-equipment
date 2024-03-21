@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import styles from './../styles.module.scss';
 import { BigCarouselControl } from './BigCarouselControl';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, Typography, Button, SxProps } from '@mui/material';
 import { CarouselFooter } from './CarouselFooter';
 import { equipment } from '../../../redux/state';
 import { SmallCarouselControl } from './SmallCarouselControl';
@@ -36,7 +36,7 @@ export const Details: React.FC<DetailsType> = ({ isOpened }) => {
     };
 
     const onChoose = (id: number) => {
-        setTargetView(targetView ? null : id);
+        setTargetView(id);
         setCurrentSlide(id - 1)
         setSlidesInRow(1)
     };
@@ -49,15 +49,14 @@ export const Details: React.FC<DetailsType> = ({ isOpened }) => {
     };
 
     const nextItem = slidesInRow === 1
-        ? total - 1 >= currentSlide ? { img: equipment[currentSlide].image, title: equipment[currentSlide].title } : undefined
+        ? total - 1 >= currentSlide + 1 ? { img: equipment[currentSlide + 1].image, title: equipment[currentSlide + 1].title } : undefined
         : undefined;
 
     const prevItem = slidesInRow === 1
-        ? 0 <= currentSlide ? { img: equipment[currentSlide].image, title: equipment[currentSlide].title } : undefined
+        ? 0 <= currentSlide - 1 ? { img: equipment[currentSlide - 1].image, title: equipment[currentSlide - 1].title } : undefined
         : undefined;
 
     return (
-        // <div className={cn(styles.detailPage, isOpened ? '' : styles.active)}>
         <Stack className={cn(styles.detailWrapper, targetView ? styles.fullView : '', styles.detailPage, isOpened ? '' : styles.active)}>
             <Stack className={styles.detailCarousel} direction={'row'} alignItems={'center'} >
                 {
@@ -84,7 +83,6 @@ export const Details: React.FC<DetailsType> = ({ isOpened }) => {
             </Stack>
             <SmallCarouselControl onSlideNext={onSlideNext} onSlidePrev={onSlidePrev} />
         </Stack>
-        // </div>
     );
 };
 
@@ -149,12 +147,27 @@ const CarouselItem: React.FC<CarouselItemType> = ({ currentSlide, index, slidesI
                 <div className={styles.imageWrapper}>
                     <img src={item.image} alt={item.title} />
                 </div>
-                <Stack className={styles.description}>
-                    Title
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos repudiandae provident ad vero. Dolorem inventore corrupti, aspernatur quaerat sit accusamus cupiditate doloribus velit. Voluptatibus sequi, blanditiis officiis ducimus consequuntur obcaecati.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos repudiandae provident ad vero. Dolorem inventore corrupti, aspernatur quaerat sit accusamus cupiditate doloribus velit. Voluptatibus sequi, blanditiis officiis ducimus consequuntur obcaecati.
+                <Stack className={styles.description} spacing={2}>
+                    <Typography variant="h4" color="primary">{item.title}</Typography>
+                    <Typography variant="body1" >{item.description}</Typography>
+
+                    <Button variant="text" color="primary" sx={styleProps.buttonLink} href={item.resource}>
+                        Детальніше
+                    </Button>
                 </Stack>
             </div>
         </Box>
     );
 };
+
+const styleProps = {
+    buttonLink: {
+        textTransform: 'none',
+        p: 1,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: 'primary.main',
+        color: 'primary.main',
+
+    } as SxProps,
+}

@@ -14,9 +14,11 @@ export const ThemeWrapper: React.FC<ThemeWrapperType> = memo(({ children }) => {
    const currentTheme = useSelector(getThemeMode);
 
    return (<>
-      <ThemeProvider theme={globalTheme[currentTheme
-         ? currentTheme === 'dark' ? 'dark' : 'light'
-         : prefersDarkMode ? 'dark' : 'light']}
+      <ThemeProvider
+         // theme={globalTheme[currentTheme
+         //    ? currentTheme === 'dark' ? 'dark' : 'light'
+         //    : prefersDarkMode ? 'dark' : 'light']}
+         theme={globalTheme.dark}
       >
          {children}
       </ThemeProvider>
