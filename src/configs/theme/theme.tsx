@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material";
+import { green } from "@mui/material/colors";
 
 export const globalTheme = {
    dark: createTheme({
@@ -7,6 +8,9 @@ export const globalTheme = {
          background: {
             // default: "#F1F1F1",
             // paper: "#252525",
+         },
+         primary: {
+            main: green[600],
          },
          fpage: {
             dark: '#fff',
