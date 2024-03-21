@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/landing-viking-equipment/static/css/main.9515214d.css",
+    "main.js": "/landing-viking-equipment/static/js/main.f873d9cb.js",
+    "static/js/453.77ef0c4d.chunk.js": "/landing-viking-equipment/static/js/453.77ef0c4d.chunk.js",
+    "static/media/saga.png": "/landing-viking-equipment/static/media/saga.a85c8b8156f8d41385ba.png",
+    "static/media/berserk.png": "/landing-viking-equipment/static/media/berserk.42c6347032e0261bc827.png",
+    "static/media/longhouse.png": "/landing-viking-equipment/static/media/longhouse.5d89096cb27d1ba47704.png",
+    "static/media/odin.png": "/landing-viking-equipment/static/media/odin.fedd99e775e0652cf5e9.png",
+    "static/media/runes.png": "/landing-viking-equipment/static/media/runes.455e5803994d4a9185e4.png",
+    "static/media/drakkar.png": "/landing-viking-equipment/static/media/drakkar.465358420caccf7e490b.png",
+    "static/media/helmet.png": "/landing-viking-equipment/static/media/helmet.65db8c35fcf98bb9bef0.png",
+    "static/media/myelnir.png": "/landing-viking-equipment/static/media/myelnir.c7699a4dc1cc63f3db39.png",
+    "static/media/noun-rune-3458891.svg": "/landing-viking-equipment/static/media/noun-rune-3458891.b7d306342e5c392077e8ad9925696dc6.svg",
+    "index.html": "/landing-viking-equipment/index.html",
+    "main.9515214d.css.map": "/landing-viking-equipment/static/css/main.9515214d.css.map",
+    "main.f873d9cb.js.map": "/landing-viking-equipment/static/js/main.f873d9cb.js.map",
+    "453.77ef0c4d.chunk.js.map": "/landing-viking-equipment/static/js/453.77ef0c4d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9515214d.css",
+    "static/js/main.f873d9cb.js"
+  ]
+}
